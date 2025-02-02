@@ -82,9 +82,6 @@ def afterxl_dataget ():
         else:
             st.error(f"ファイルのダウンロード中にエラーが発生しました: {response.status_code}")
 
-        except Exception as e:
-            st.error(f"Excelファイルの処理中にエラーが発生しました: {e}")
-
     except Exception as e:  # 例外が発生した場合の処理
         st.error(f"エラーが発生しました: {e}")
 
