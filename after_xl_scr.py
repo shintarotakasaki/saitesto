@@ -12,6 +12,7 @@ import requests
 import shutil
 
 xlpoints = ["AC9-1","AC9","AC11","AC13","AC15","AC17","AC19","A11","S11","AM9"]
+# コメントアウトされたコード
 """
 def xl_data_upload(rects):
     labels = []
