@@ -12,7 +12,7 @@ import requests
 import shutil
 
 xlpoints = ["AC9-1","AC9","AC11","AC13","AC15","AC17","AC19","A11","S11","AM9"]
-
+"""
 def xl_data_upload(rects):
     labels = []
     values = []
@@ -56,11 +56,13 @@ def xl_data_upload(rects):
 
         for label, value in zip(labels, values):
             st.write(f"**{label}**: {value}")
-
+"""
 def afterxl_dataget (values):
+    import streamlit as st
     """
     GitHubからExcelファイルをダウンロードし、開く関数。
     """
+    after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
     try:
         # インデントを修正
         github_url = "https://github.com/shintarotakasaki/excel3/raw/main/伝票(規格品)_ラベル_指示書.xlsm"
