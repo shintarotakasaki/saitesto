@@ -61,6 +61,7 @@ def afterxl_dataget ():
     """
     GitHubからExcelファイルをダウンロードし、開く関数。
     """
+    import streamlit as st
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
     """
     try:
