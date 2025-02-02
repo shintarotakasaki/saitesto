@@ -63,9 +63,8 @@ def afterxl_dataget ():
     """
     import streamlit as st
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
-    """
+    
     try:
-        # インデントを修正
         github_url = "https://github.com/shintarotakasaki/excel3/raw/main/伝票(規格品)_ラベル_指示書.xlsm"
         # ファイルをダウンロードして一時ファイルとして保存
         response = requests.get(github_url,stream=True)
@@ -74,12 +73,14 @@ def afterxl_dataget ():
             with open("伝票(規格品)_ラベル_指示書.xlsm",'wb')as f:
                 response.raw.decode_content = True
                 shutil.copyfileobj(response.raw, f)
-        try:
+    
             wb_demp = load_workbook(file_path, keep_vba=True)
             ws_demp = wb_demp['納品書控(製品)']
             wb_demp.active = ws_demp
 
             # ここでwb_dempを使って処理を行う
+        else:
+            st.error(f"ファイルのダウンロード中にエラーが発生しました: {response.status_code}")
 
         except requests.exceptions.RequestException as e:
             st.error(f"ファイルのダウンロード中にエラーが発生しました: {e}")
@@ -89,6 +90,6 @@ def afterxl_dataget ():
     except Exception as e:  # 例外が発生した場合の処理
         st.error(f"エラーが発生しました: {e}")
     """
-if __name__ == "__afterxl_datage__":
+if __name__ == "__main__":
     afterxl_datage()
 # ... (他のコードは省略)
