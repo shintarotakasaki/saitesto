@@ -89,7 +89,7 @@ def afterxl_dataget ():
 
     except Exception as e:  # 例外が発生した場合の処理
         st.error(f"エラーが発生しました: {e}")
-    """
+
 if __name__ == "__main__":
     afterxl_datage()
 # ... (他のコードは省略)
