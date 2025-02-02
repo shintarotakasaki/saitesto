@@ -86,5 +86,5 @@ def afterxl_dataget ():
         st.error(f"エラーが発生しました: {e}")
 
 if __name__ == "__main__":
-    afterxl_datage()
+    afterxl_dataget()
 # ... (他のコードは省略)
