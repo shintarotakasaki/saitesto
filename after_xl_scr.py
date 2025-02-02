@@ -62,6 +62,7 @@ def afterxl_dataget ():
     GitHubからExcelファイルをダウンロードし、開く関数。
     """
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
+    """
     try:
         # インデントを修正
         github_url = "https://github.com/shintarotakasaki/excel3/raw/main/伝票(規格品)_ラベル_指示書.xlsm"
@@ -86,5 +87,6 @@ def afterxl_dataget ():
 
     except Exception as e:  # 例外が発生した場合の処理
         st.error(f"エラーが発生しました: {e}")
+    """
 
 # ... (他のコードは省略)
