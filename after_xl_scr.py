@@ -57,8 +57,7 @@ def xl_data_upload(rects):
         for label, value in zip(labels, values):
             st.write(f"**{label}**: {value}")
 """
-def afterxl_dataget (values):
-    import streamlit as st
+def afterxl_dataget ():
     """
     GitHubからExcelファイルをダウンロードし、開く関数。
     """
