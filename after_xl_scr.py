@@ -11,13 +11,12 @@ from io import BytesIO
 import requests
 import shutil
 
-xlpoints = ["AC9-1","AC9","AC11","AC13","AC15","AC17","AC19","A11","S11","AM9"]
 # コメントアウトされたコード
 _='''
-def xl_data_upload(rects):
-    labels = []
+def xl_data_upload():
     values = []
-    after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
+    
+    #after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
 
     if after_xl is not None:
         file_mime = after_xl.type
@@ -27,25 +26,18 @@ def xl_data_upload(rects):
                 wb = load_workbook(filename=file)
                 sheet = wb.active
                 #st.write(f"Sheet title: {sheet.title}")
-                rects = [
-                    ("G19","AC9-1"),
-                    ("G20","AC9"),
-                    ("L15","AM9"),
-                    ("N20","AC11"),
-                    ("G21","AC13"),
-                    ("N21","AC15"),
-                    ("G23","AC19-1"),
-                    ("Q23","AC19"),
-                    ("H28","A11")
-                        ]
+                rects = ["G19","G20","L15","N20","G21","N21","G23","Q23","H28"]
 
                 for rect in rects:
+                #残しておきたいので取りあえずコメントアウト、あとで消す。
+                """
                     points,label = rect
                     labels.append(label)
                     for point in points:
                         values.append(sheet[point].value)
-
-
+                """
+                    values.append(sheet[rect].value)
+                return values
 
             except Exception as e:
                 st.error(f"エラーが発生しました: {e}")
@@ -55,15 +47,28 @@ def xl_data_upload(rects):
             st.write("エクセルファイル(.xlsx)をアップロードしてください")
             st.stop()
 
+        #残しておきたいので取りあえずコメントアウト、あとで消す。
+        """
         for label, value in zip(labels, values):
             st.write(f"**{label}**: {value}")
+        """
 '''
 def afterxl_dataget ():
     """
     GitHubからExcelファイルをダウンロードし、開く関数。
     """
+    xlpoints = ["AC9-1","AC9","AC11","AC13","AC15","AC17","AC19","A11","S11","AM9"]
+    
     import streamlit as st
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
+    
+    if after_xl is not None:
+        xl_data_upload(after_xl):
+    
+    else:
+        st.write("エクセルファイル(.xlsx)をアップロードしてください")
+        st.stop()
+
     
     try:
         github_url = "https://github.com/shintarotakasaki/excel3/raw/main/伝票(規格品)_ラベル_指示書.xlsm"
