@@ -88,6 +88,42 @@ def afterxl_dataget ():
             wb_demp.active = ws_demp
 
             # ここでwb_dempを使って処理を行う
+            # Excelファイルへの書き込み
+            wb_demp['AH3'] = syukka
+            wb_demp['AM9'] = buturyu
+            wb_demp['AB4'] = konpou + "梱包"
+
+            zig_tok = ""
+            for i, text in enumerate(text_list):
+                if labels[i] == 'AC9-1':
+                    zig_tok = text
+                elif labels[i] == 'AC9':
+                    ws[labels[i]] = zig_tok + '-' + text
+                elif labels[i] == 'AC11':
+                    ws[labels[i]] = text + "様"
+                elif labels[i] == 'AC13':
+                    ws[labels[i]] = '届け先：' + text
+                elif labels[i] == 'AC15':
+                    ws[labels[i]] = text + "様" if text else "=AC11"
+                elif labels[i] == 'AC17':
+                    ws[labels[i]] = '現場名：' + text
+                else:
+                    ws[labels[i]] = text
+
+            # 保存とダウンロード
+            wb.save(file_path)
+            st.success("Excelファイルが上書き保存されました！")                
+
+            #ファイルをダウンロード
+            st.write("保存されたファイルを以下のリンクからダウンロードしてください:")
+            with open(file_path, "rb") as file:
+                st.download_button(
+                    label="ダウンロードする",
+                    data=file,
+                    file_name="伝票(規格品)_ラベル_指示書.xlsm",
+                    mime="application/vnd.ms-excel"
+                )
+            #wb_dempの処理終わり
         else:
             st.error(f"ファイルのダウンロード中にエラーが発生しました: {response.status_code}")
 
