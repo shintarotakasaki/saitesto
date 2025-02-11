@@ -30,12 +30,12 @@ def xl_data_upload():
 
                 for rect in rects:
                 #残しておきたいので取りあえずコメントアウト、あとで消す。
-                """
+                '''
                     points,label = rect
                     labels.append(label)
                     for point in points:
                         values.append(sheet[point].value)
-                """
+                '''
                     values.append(sheet[rect].value)
 
                 for rect, value in zip(rects, values):
