@@ -66,7 +66,7 @@ def afterxl_dataget ():
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
     
     if after_xl is not None:
-        xl_data_upload(after_xl):
+        xl_data_upload(after_xl)
     
     else:
         st.write("エクセルファイル(.xlsx)をアップロードしてください")
