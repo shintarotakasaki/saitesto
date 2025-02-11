@@ -12,7 +12,7 @@ import requests
 import shutil
 
 # コメントアウトされたコード
-_='''
+
 def xl_data_upload():
     values = []
     
@@ -37,6 +37,10 @@ def xl_data_upload():
                         values.append(sheet[point].value)
                 """
                     values.append(sheet[rect].value)
+
+                for rect, value in zip(rects, values):
+                    st.write(f"{rect}: {value}")
+                
                 return values
 
             except Exception as e:
@@ -52,14 +56,13 @@ def xl_data_upload():
         for label, value in zip(labels, values):
             st.write(f"**{label}**: {value}")
         """
-'''
+
 def afterxl_dataget ():
     """
     GitHubからExcelファイルをダウンロードし、開く関数。
     """
     xlpoints = ["AC9-1","AC9","AC11","AC13","AC15","AC17","AC19","A11","S11","AM9"]
     
-    import streamlit as st
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
     
     if after_xl is not None:
