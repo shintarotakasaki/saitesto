@@ -98,9 +98,9 @@ def afterxl_dataget ():
                     ws_demp[xlpoint] = "届け先：" + value
                 elif xlpoint == "AC15":
                     ws_demp[xlpoint] = value + "様" if value else "=AC11"
-                elif xlpoint == "AC19-1"
+                elif xlpoint == "AC19-1":
                     gen_1 = value
-                elif xlpoint == "AC19"
+                elif xlpoint == "AC19":
                     ws_demp[xlpoint] = gen_1 +"/"+ value
                 else:
                     ws_demp[xlpoint] = value
