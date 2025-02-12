@@ -93,16 +93,21 @@ def afterxl_dataget ():
                     zig_tok = value
                 elif xlpoint == "AC9":
                     ws_demp[xlpoint] = str(zig_tok) + '-' + str(value)
+                elif xlpoint == "AM9"
+                    ws_demp[xlpoint] = str(value)[:4]
                 elif xlpoint == "AC11":
                     ws_demp[xlpoint] = str(value) + "様"
                 elif xlpoint == "AC13":
-                    ws_demp[xlpoint] = "届け先：" + str(value)
+                    if value is None:
+                        ws_demp[xlpoint] = "届け先："
+                    else:
+                        ws_demp[xlpoint] = "届け先：" + str(value)
                 elif xlpoint == "AC15":
                     ws_demp[xlpoint] = str(value) + "様" if value else "=AC11"
                 elif xlpoint == "AC19-1":
                     gen_1 = value
                 elif xlpoint == "AC19":
-                    ws_demp[xlpoint] = str(gen_1) +"/"+ str(value)
+                    ws_demp[xlpoint] = str(gen_1) +"/#"+ str(value)+"#"
                 else:
                     ws_demp[xlpoint] = str(value)
 
