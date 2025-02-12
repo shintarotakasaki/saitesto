@@ -13,7 +13,7 @@ import shutil
 
 # コメントアウトされたコード
 
-def xl_data_upload():
+def xl_data_upload(after_xl):
     values = []
     
     #after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
@@ -25,16 +25,9 @@ def xl_data_upload():
                 file = BytesIO(after_xl.getvalue())
                 wb = load_workbook(filename=file)
                 sheet = wb.active
-                #st.write(f"Sheet title: {sheet.title}")
                 rects = ["G19","G20","L15","N20","G21","N21","G23","Q23","H28","AB34"]
 
                 for rect in rects:
-                #残しておきたいので取りあえずコメントアウト、あとで消す。
-                    
-                    #points,label = rect
-                    #labels.append(label)
-                    #for point in points:
-                        #values.append(sheet[point].value)
                         
                     values.append(sheet[rect].value)
 
@@ -45,35 +38,29 @@ def xl_data_upload():
 
             except Exception as e:
                 st.error(f"エラーが発生しました: {e}")
-                return None, None
+                return None
 
         else:
             st.write("エクセルファイル(.xlsx)をアップロードしてください")
             st.stop()
 
-        #残しておきたいので取りあえずコメントアウト、あとで消す。
-        """
-        for label, value in zip(labels, values):
-            st.write(f"**{label}**: {value}")
-        """
-
 def afterxl_dataget ():
     """
     GitHubからExcelファイルをダウンロードし、開く関数。
     """
+    values = ""
     xlpoints = ["AC9-1","AC9","AM9","AC11","AC13","AC15","AC19-1","AC19","A11","S11"]
     
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
     
     if after_xl is not None:
-        xl_data_upload(after_xl)
+        values = xl_data_upload(after_xl)
     
     else:
         st.write("エクセルファイル(.xlsx)をアップロードしてください")
         st.stop()
-
     
-    try:
+    if values is not "":
         github_url = "https://github.com/shintarotakasaki/excel3/raw/main/伝票(規格品)_ラベル_指示書.xlsm"
         # ファイルをダウンロードして一時ファイルとして保存
         response = requests.get(github_url,stream=True)
@@ -82,13 +69,19 @@ def afterxl_dataget ():
             with open("伝票(規格品)_ラベル_指示書.xlsm",'wb')as f:
                 response.raw.decode_content = True
                 shutil.copyfileobj(response.raw, f)
-    
+        try:
             wb_demp = load_workbook(file_path, keep_vba=True)
             ws_demp = wb_demp['納品書控(製品)']
             wb_demp.active = ws_demp
 
             # ここでwb_dempを使って処理を行う
             # Excelファイルへの書き込み
+
+            syukka = st.date_input("出荷日を入力してください")
+            konpou = st.selectbox("梱包数を選択してください",['1','2','3','4','5','それ以上'])
+            if konpou =='それ以上':
+                konpou = st.text_input('梱包数を入力してください(半角数字)')
+            
             ws_demp["AH3"] = syukka
             ws_demp["AB4"] = konpou + "梱包"
 
@@ -113,7 +106,7 @@ def afterxl_dataget ():
                     ws_demp[xlpoint] = value
 
             # 保存とダウンロード
-            wb.save(file_path)
+            wb_demp.save(file_path)
             st.success("Excelファイルが上書き保存されました！")                
 
             #ファイルをダウンロード
