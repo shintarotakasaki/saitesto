@@ -122,7 +122,7 @@ def afterxl_dataget ():
             #wb_dempの処理終わり
 
         except Exception as e:  # 例外が発生した場合の処理
-            st.error(f"エラーが発生しました: {e}")
+            st.error(f"エラーが発生しました: {str(e)}")
 
 if __name__ == "__main__":
     afterxl_dataget()
