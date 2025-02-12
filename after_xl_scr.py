@@ -26,7 +26,7 @@ def xl_data_upload():
                 wb = load_workbook(filename=file)
                 sheet = wb.active
                 #st.write(f"Sheet title: {sheet.title}")
-                rects = ["G19","G20","L15","N20","G21","N21","G23","Q23","H28"]
+                rects = ["G19","G20","L15","N20","G21","N21","G23","Q23","H28","AB34"]
 
                 for rect in rects:
                 #残しておきたいので取りあえずコメントアウト、あとで消す。
@@ -61,7 +61,7 @@ def afterxl_dataget ():
     """
     GitHubからExcelファイルをダウンロードし、開く関数。
     """
-    xlpoints = ["AC9-1","AC9","AC11","AC13","AC15","AC17","AC19","A11","S11","AM9"]
+    xlpoints = ["AC9-1","AC9","AM9","AC11","AC13","AC15","AC19-1","AC19","A11","S11"]
     
     after_xl = st.file_uploader("アフター申請書エクセルをアップロードしてください")
     
@@ -89,26 +89,28 @@ def afterxl_dataget ():
 
             # ここでwb_dempを使って処理を行う
             # Excelファイルへの書き込み
-            wb_demp['AH3'] = syukka
-            wb_demp['AM9'] = buturyu
-            wb_demp['AB4'] = konpou + "梱包"
+            ws_demp["AH3"] = syukka
+            ws_demp["AB4"] = konpou + "梱包"
 
             zig_tok = ""
-            for i, text in enumerate(text_list):
-                if labels[i] == 'AC9-1':
-                    zig_tok = text
-                elif labels[i] == 'AC9':
-                    ws[labels[i]] = zig_tok + '-' + text
-                elif labels[i] == 'AC11':
-                    ws[labels[i]] = text + "様"
-                elif labels[i] == 'AC13':
-                    ws[labels[i]] = '届け先：' + text
-                elif labels[i] == 'AC15':
-                    ws[labels[i]] = text + "様" if text else "=AC11"
-                elif labels[i] == 'AC17':
-                    ws[labels[i]] = '現場名：' + text
+            gen_1 = ""
+            for xlpoint, value in zip(xlpoints, values):
+                if xlpoint == "AC9-1":
+                    zig_tok = value
+                elif xlpoint == "AC9":
+                    ws_demp[xlpoint] = zig_tok + '-' + value
+                elif xlpoint == "AC11":
+                    ws_demp[xlpoint] = text + "様"
+                elif xlpoint == "AC13":
+                    ws_demp[xlpoint] = "届け先：" + value
+                elif xlpoint == "AC15":
+                    ws_demp[xlpoint] = value + "様" if value else "=AC11"
+                elif xlpoint == "AC19-1"
+                    gen_1 = value
+                elif xlpoint == "AC19"
+                    ws_demp[xlpoint] = gen_1 +"/"+ value
                 else:
-                    ws[labels[i]] = text
+                    ws_demp[xlpoint] = value
 
             # 保存とダウンロード
             wb.save(file_path)
