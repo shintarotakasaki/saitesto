@@ -93,7 +93,7 @@ def afterxl_dataget ():
                     zig_tok = value
                 elif xlpoint == "AC9":
                     ws_demp[xlpoint] = str(zig_tok) + '-' + str(value)
-                elif xlpoint == "AM9"
+                elif xlpoint == "AM9":
                     ws_demp[xlpoint] = str(value)[:4]
                 elif xlpoint == "AC11":
                     ws_demp[xlpoint] = str(value) + "様"
