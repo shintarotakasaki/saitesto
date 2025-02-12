@@ -92,19 +92,19 @@ def afterxl_dataget ():
                 if xlpoint == "AC9-1":
                     zig_tok = value
                 elif xlpoint == "AC9":
-                    ws_demp[xlpoint] = zig_tok + '-' + value
+                    ws_demp[xlpoint] = str(zig_tok) + '-' + str(value)
                 elif xlpoint == "AC11":
-                    ws_demp[xlpoint] = text + "様"
+                    ws_demp[xlpoint] = str(value) + "様"
                 elif xlpoint == "AC13":
-                    ws_demp[xlpoint] = "届け先：" + value
+                    ws_demp[xlpoint] = "届け先：" + str(value)
                 elif xlpoint == "AC15":
-                    ws_demp[xlpoint] = value + "様" if value else "=AC11"
+                    ws_demp[xlpoint] = str(value) + "様" if value else "=AC11"
                 elif xlpoint == "AC19-1":
                     gen_1 = value
                 elif xlpoint == "AC19":
-                    ws_demp[xlpoint] = gen_1 +"/"+ value
+                    ws_demp[xlpoint] = str(gen_1) +"/"+ str(value)
                 else:
-                    ws_demp[xlpoint] = value
+                    ws_demp[xlpoint] = str(value)
 
             # 保存とダウンロード
             wb_demp.save(file_path)
