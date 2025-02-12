@@ -69,6 +69,7 @@ def afterxl_dataget ():
             with open("伝票(規格品)_ラベル_指示書.xlsm",'wb')as f:
                 response.raw.decode_content = True
                 shutil.copyfileobj(response.raw, f)
+            
         try:
             wb_demp = load_workbook(file_path, keep_vba=True)
             ws_demp = wb_demp['納品書控(製品)']
@@ -119,11 +120,9 @@ def afterxl_dataget ():
                     mime="application/vnd.ms-excel"
                 )
             #wb_dempの処理終わり
-        else:
-            st.error(f"ファイルのダウンロード中にエラーが発生しました: {response.status_code}")
 
-    except Exception as e:  # 例外が発生した場合の処理
-        st.error(f"エラーが発生しました: {e}")
+        except Exception as e:  # 例外が発生した場合の処理
+            st.error(f"エラーが発生しました: {e}")
 
 if __name__ == "__main__":
     afterxl_dataget()
